@@ -2,3 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
+#studentList a {
+  margin-left: 1em;
+}

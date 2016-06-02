@@ -22,8 +22,24 @@ var megaRoster = {
 
   buildListItem: function(studentName) {
     var item = document.createElement('li');
+    var deleteLink = this.buildLink({
+      text: 'remove',
+      handler: function(ev) {
+        var list = item.parentElement;
+        list.removeChild(item);
+      }
+    });
     item.innerText = studentName;
+    item.appendChild(deleteLink);
     return item;
+  },
+
+  buildLink: function(options) {
+    var link = document.createElement('a');
+    link.href = '#';
+    link.innerText = options.text;
+    link.onclick = options.handler;
+    return link;
   },
 }
 
