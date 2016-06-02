@@ -15,9 +15,13 @@ var megaRoster = {
     var studentName = f.studentName.value;
     var item = this.buildListItem(studentName);
     var list = document.querySelector('#studentList');
-    list.appendChild(item);
+    this.prependChild(list, item);
     f.reset();
     f.studentName.focus();
+  },
+
+  prependChild: function(parent, child) {
+    parent.insertBefore(child, parent.firstChild);
   },
 
   buildListItem: function(studentName) {
