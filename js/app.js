@@ -32,18 +32,22 @@ var megaRoster = {
     return item;
   },
 
+  promote: function(item) {
+    this.prependChild(this.rosterElement, item);
+  },
+
   appendLinks: function(item) {
     var deleteLink = this.buildLink({
       text: 'remove',
       handler: function(ev) {
         this.rosterElement.removeChild(item);
-      }.bind(this)
+      }
     });
 
     var promoteLink = this.buildLink({
       text: 'promote',
-      handler: function(ev) {
-        item.style.border = '2px CornflowerBlue dashed';
+      handler: function() {
+        this.promote(item);
       }
     });
 
@@ -55,7 +59,7 @@ var megaRoster = {
     var link = document.createElement('a');
     link.href = '#';
     link.innerText = options.text;
-    link.onclick = options.handler;
+    link.onclick = options.handler.bind(this);
     return link;
   },
 }
