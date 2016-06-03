@@ -37,6 +37,18 @@ var megaRoster = {
     this.prependToList(studentItem);
   },
 
+  moveUp: function(studentItem) {
+    var previousElement = studentItem.previousElementSibling;
+    studentItem.remove();
+    this.rosterElement.insertBefore(studentItem, previousElement);
+  },
+
+  moveDown: function(studentItem) {
+    var nextElement = studentItem.nextElementSibling;
+    studentItem.remove();
+    this.rosterElement.insertBefore(studentItem, nextElement.nextElementSibling);
+  },
+
   appendLinks: function(item) {
     var deleteLink = this.buildLink({
       text: 'remove',
@@ -50,8 +62,20 @@ var megaRoster = {
       handler: this.promote.bind(this, item)
     });
 
+    var moveUpLink = this.buildLink({
+      text: 'up',
+      handler: this.moveUp.bind(this, item)
+    });
+
+    var moveDownLink = this.buildLink({
+      text: 'down',
+      handler: this.moveDown.bind(this, item)
+    });
+
     item.appendChild(deleteLink);
     item.appendChild(promoteLink);
+    item.appendChild(moveUpLink);
+    item.appendChild(moveDownLink);
   },
 
   buildLink: function(options) {
