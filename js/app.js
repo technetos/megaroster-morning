@@ -26,7 +26,9 @@ var megaRoster = {
 
   buildListItem: function(studentName) {
     var item = document.createElement('li');
-    item.innerText = studentName;
+    var span = document.createElement('span');
+    span.innerText = studentName;
+    item.appendChild(span);
     this.appendLinks(item);
 
     return item;
@@ -35,6 +37,17 @@ var megaRoster = {
   promote: function(studentItem) {
     studentItem.remove();
     this.prependToList(studentItem);
+  },
+
+  toggleEditable: function(element) {
+    var toggleElement = element.parentElement.querySelector('.toggle');
+    if (element.contentEditable == "true") {
+        element.contentEditable = "false";
+        toggleElement.innerHTML = "edit";
+    } else {
+        element.contentEditable = "true";
+        toggleElement.innerHTML = "update";
+    }
   },
 
   moveUp: function(studentItem) {
@@ -72,10 +85,17 @@ var megaRoster = {
       handler: this.moveDown.bind(this, item)
     });
 
+    var editLink = this.buildLink({
+      text: 'edit',
+      handler: this.toggleEditable.bind(this, item.querySelector('span'))
+    });
+    editLink.className += 'toggle';
+
     item.appendChild(deleteLink);
     item.appendChild(promoteLink);
     item.appendChild(moveUpLink);
     item.appendChild(moveDownLink);
+    item.appendChild(editLink);
   },
 
   buildLink: function(options) {
