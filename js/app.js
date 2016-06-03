@@ -27,8 +27,12 @@ var megaRoster = {
   buildListItem: function(studentName) {
     var item = document.createElement('li');
     item.innerText = studentName;
+    this.appendLinks(item);
 
-    // BEGIN things to move to a separate function
+    return item;
+  },
+
+  appendLinks: function(item) {
     var deleteLink = this.buildLink({
       text: 'remove',
       handler: function(ev) {
@@ -46,13 +50,6 @@ var megaRoster = {
 
     item.appendChild(deleteLink);
     item.appendChild(promoteLink);
-    // END things to move to a separate function
-
-    return item;
-  },
-
-  appendLinks: function(item) {
-    // Append the delete and promote links
   },
 
   buildLink: function(options) {
