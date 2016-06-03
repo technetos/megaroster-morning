@@ -1,7 +1,8 @@
 $(document).foundation()
 
 var megaRoster = {
-  init: function() {
+  init: function(rosterElementSelector) {
+    this.rosterElement = document.querySelector(rosterElementSelector);
     this.setupEventListeners();
   },
 
@@ -14,8 +15,7 @@ var megaRoster = {
     var f = ev.currentTarget;
     var studentName = f.studentName.value;
     var item = this.buildListItem(studentName);
-    var list = document.querySelector('#studentList');
-    this.prependChild(list, item);
+    this.prependChild(this.rosterElement, item);
     f.reset();
     f.studentName.focus();
   },
@@ -36,9 +36,8 @@ var megaRoster = {
     var deleteLink = this.buildLink({
       text: 'remove',
       handler: function(ev) {
-        var list = item.parentElement;
-        list.removeChild(item);
-      }
+        this.rosterElement.removeChild(item);
+      }.bind(this)
     });
 
     var promoteLink = this.buildLink({
@@ -61,4 +60,4 @@ var megaRoster = {
   },
 }
 
-megaRoster.init();
+megaRoster.init('#studentList');
