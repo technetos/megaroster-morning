@@ -1,4 +1,5 @@
 $(document).foundation()
+var ENTER_KEY = 13;
 
 var megaRoster = {
   init: function(rosterElementSelector) {
@@ -28,6 +29,13 @@ var megaRoster = {
     var item = document.createElement('li');
     var span = document.createElement('span');
     span.innerText = studentName;
+
+    span.onkeypress = function(ev) {
+      if (ev.keyCode === ENTER_KEY) {
+        this.toggleEditable(ev.currentTarget);
+      }
+    }.bind(this);
+
     item.appendChild(span);
     this.appendLinks(item);
 
