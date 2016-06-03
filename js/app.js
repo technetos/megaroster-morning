@@ -65,14 +65,14 @@ var megaRoster = {
     span.className = 'actions';
 
     var deleteLink = this.buildLink({
-      text: 'remove',
+      contents: 'remove',
       handler: function(ev) {
         this.rosterElement.removeChild(item);
       }
     });
 
     var promoteLink = this.buildLink({
-      text: 'promote',
+      contents: 'promote',
       handler: function() {
         this.promote(item);
       }
@@ -82,7 +82,7 @@ var megaRoster = {
     span.appendChild(promoteLink);
 
     span.appendChild(this.buildLink({
-      text: 'up',
+      contents: '<i class="fa fa-arrow-up"></i>',
       className: 'up',
       handler: function() {
         if (item !== this.rosterElement.firstElementChild) {
@@ -92,7 +92,7 @@ var megaRoster = {
     }));
 
     span.appendChild(this.buildLink({
-      text: 'down',
+      contents: 'down',
       className: 'down',
       handler: function() {
         if (item !== this.rosterElement.lastElementChild) {
@@ -102,7 +102,7 @@ var megaRoster = {
     }));
 
     span.appendChild(this.buildLink({
-      text: 'edit',
+      contents: 'edit',
       className: 'toggleEdit',
       handler: function() {
         this.toggleEditable(item.querySelector('span.studentName'));
@@ -115,7 +115,7 @@ var megaRoster = {
   buildLink: function(options) {
     var link = document.createElement('a');
     link.href = '#';
-    link.innerText = options.text;
+    link.innerHTML = options.contents;
     link.onclick = options.handler.bind(this);
     link.className = options.className;
     return link;
