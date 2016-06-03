@@ -6,3 +6,17 @@
 #studentList a {
   margin-left: 1em;
 }
+
+span.actions {
+  display: inline-block;
+  float: right;
+}
+
+span.studentName {
+  display: inline-block;
+  width: 15em;
+}
+
+span[contenteditable=true] {
+  padding: 0;
+}
