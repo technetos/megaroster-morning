@@ -1,7 +1,8 @@
 $(document).foundation()
 
 var megaRoster = {
-  init: function() {
+  init: function(rosterElementSelector) {
+    this.rosterElement = document.querySelector(rosterElementSelector);
     this.setupEventListeners();
   },
 
@@ -14,14 +15,13 @@ var megaRoster = {
     var f = ev.currentTarget;
     var studentName = f.studentName.value;
     var item = this.buildListItem(studentName);
-    var list = document.querySelector('#studentList');
-    this.prependChild(list, item);
+    this.prependToList(item);
     f.reset();
     f.studentName.focus();
   },
 
-  prependChild: function(parent, child) {
-    parent.insertBefore(child, parent.firstChild);
+  prependToList: function(newItem) {
+    this.rosterElement.insertBefore(newItem, this.rosterElement.firstChild);
   },
 
   buildListItem: function(studentName) {
@@ -36,9 +36,8 @@ var megaRoster = {
     var deleteLink = this.buildLink({
       text: 'remove',
       handler: function(ev) {
-        var list = item.parentElement;
-        list.removeChild(item);
-      }
+        this.rosterElement.removeChild(item);
+      }.bind(this)
     });
 
     var promoteLink = this.buildLink({
@@ -61,4 +60,4 @@ var megaRoster = {
   },
 }
 
-megaRoster.init();
+megaRoster.init('#studentList');
