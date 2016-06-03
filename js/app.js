@@ -32,6 +32,11 @@ var megaRoster = {
     return item;
   },
 
+  promote: function(studentItem) {
+    studentItem.remove();
+    this.prependToList(studentItem);
+  },
+
   appendLinks: function(item) {
     var deleteLink = this.buildLink({
       text: 'remove',
@@ -42,9 +47,7 @@ var megaRoster = {
 
     var promoteLink = this.buildLink({
       text: 'promote',
-      handler: function(ev) {
-        item.style.border = '2px CornflowerBlue dashed';
-      }
+      handler: this.promote.bind(this, item)
     });
 
     item.appendChild(deleteLink);
