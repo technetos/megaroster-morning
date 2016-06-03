@@ -26,7 +26,9 @@ var megaRoster = {
 
   buildListItem: function(studentName) {
     var item = document.createElement('li');
-    item.innerText = studentName;
+    var span = document.createElement('span');
+    span.innerText = studentName;
+    item.appendChild(span);
     this.appendLinks(item);
 
     return item;
@@ -45,12 +47,15 @@ var megaRoster = {
     this.moveUp(item.nextElementSibling);
   },
 
-  isFirstItem: function(item) {
-    return (this.rosterElement.firstChild === item);
-  },
-
-  isLastItem: function(item) {
-    return (this.rosterElement.lastChild === item);
+  toggleEditable: function(el) {
+    var toggleElement = el.parentElement.querySelector('.toggleEdit');
+    if (el.contentEditable === "true") {
+        el.contentEditable = "false";
+        toggleElement.innerHTML = "edit";
+    } else {
+        el.contentEditable = "true";
+        toggleElement.innerHTML = "update";
+    }
   },
 
   appendLinks: function(item) {
@@ -88,6 +93,14 @@ var megaRoster = {
         if (item !== this.rosterElement.lastElementChild) {
           this.moveDown(item);
         }
+      }
+    }));
+
+    item.appendChild(this.buildLink({
+      text: 'edit',
+      className: 'toggleEdit',
+      handler: function() {
+        this.toggleEditable(item.querySelector('span'));
       }
     }));
   },
