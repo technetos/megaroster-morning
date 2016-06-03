@@ -45,6 +45,14 @@ var megaRoster = {
     this.moveUp(item.nextElementSibling);
   },
 
+  isFirstItem: function(item) {
+    return (this.rosterElement.firstChild === item);
+  },
+
+  isLastItem: function(item) {
+    return (this.rosterElement.lastChild === item);
+  },
+
   appendLinks: function(item) {
     var deleteLink = this.buildLink({
       text: 'remove',
@@ -65,15 +73,21 @@ var megaRoster = {
 
     item.appendChild(this.buildLink({
       text: 'up',
+      className: 'up',
       handler: function() {
-        this.moveUp(item);
+        if (item !== this.rosterElement.firstElementChild) {
+          this.moveUp(item);
+        }
       }
     }));
 
     item.appendChild(this.buildLink({
       text: 'down',
+      className: 'down',
       handler: function() {
-        this.moveDown(item);
+        if (item !== this.rosterElement.lastElementChild) {
+          this.moveDown(item);
+        }
       }
     }));
   },
@@ -83,6 +97,7 @@ var megaRoster = {
     link.href = '#';
     link.innerText = options.text;
     link.onclick = options.handler.bind(this);
+    link.className = options.className;
     return link;
   },
 }
